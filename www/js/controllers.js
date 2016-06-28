@@ -1,4 +1,8 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ngResource'])
+
+.config(function ($httpProvider) {
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    })
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,16 +45,53 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.factory('Orders', function ($http) {
+  return {
+    all: function () {
+      return $http.get('https://eat-it-server.herokuapp.com/orders.json')
+    },
+    new: function (order) {
+      console.log(order)
+      return $http.post('https://eat-it-server.herokuapp.com/orders.json', { order: {name: order.name, provider_id: order.provider} })
+      //return $http.put('http://10.0.0.30:3000/orders.json', { data: {name: "asd", provider_id: "asd", description: "asd"} })
+    }
+  };
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.factory('Providers', function ($http) {
+  return {
+    all: function () {
+      return $http.get('https://eat-it-server.herokuapp.com/providers.json')
+    }
+  };
+})
+
+.controller('OrdersCtrl', function($scope, $state, Orders) {
+
+  Orders.all().success(function (response) {
+    $scope.orders = response;
+  })
+
+  $scope.newOrder = function () {
+    $state.go("app.new_order");
+  }
+
+})
+
+.controller('NewOrderCtrl', function($scope, $state, Providers, Orders) {
+  Providers.all().success(function (response) {
+    $scope.providers = response;
+  })
+
+  $scope.createOrder = function (order) {
+    //console.log(order)
+    Orders.new(order).then (function() {
+      $state.go("app.orders");
+    })
+  }
+})
+
+.controller('CreateOrderCtrl', function($scope, $stateParams, Orders) {
+  console.log($stateParams)
+  console.log($scope)
 });

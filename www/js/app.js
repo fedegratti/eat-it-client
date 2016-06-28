@@ -42,32 +42,45 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
   .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/browse',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/browse.html'
       }
     }
-  });
+  })
+  .state('app.orders', {
+    url: '/orders',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/orders.html',
+        controller: 'OrdersCtrl'
+      }
+    }
+  })
+
+  .state('app.new_order', {
+    url: '/new_order',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/new_order.html',
+        controller: 'NewOrderCtrl'
+      }
+    }
+  })
+
+  .state('app.create_order', {
+    url: '/create_order',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/new_order.html',
+        controller: 'CreateOrderCtrl'
+      }
+    }
+  })
+
+
+  ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/orders');
 });

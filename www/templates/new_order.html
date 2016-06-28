@@ -1,0 +1,30 @@
+<ion-view view-title="Nueva Orden" ng-controller="NewOrderCtrl">
+  <ion-content>
+  <form ng-submit="createOrder(order)"> <!-- action="/#/app/create_order" method="post" -->
+    <div class="list" >
+      <label class="item item-input">
+        <span class="input-label">Nombre</span>
+        <input type="text" ng-model="order.name"><!--  name="order[name]" -->
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Proveedor
+        </div>
+        <select ng-model="order.provider"> <!-- name="order[provider]" -->
+          <option ng-repeat="provider in providers" value="{{provider.id}}">
+            {{provider.name}}
+          </option>
+        </select>
+      </label>
+      <label class="item item-input item-textarea">
+        <span class="input-label">Descripci&oacute;n</span>
+        <textarea ng-model="order.description"></textarea> <!-- name="order[description]" -->
+      </label>
+      <button class="button button-full button-balanced" type="submit"> <!-- ng-click="createOrder()" -->
+        Crear Orden
+      </button>
+    </div>
+  </form>
+  </ion-content>
+</ion-view>
+
