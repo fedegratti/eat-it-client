@@ -51,12 +51,14 @@ angular.module('starter.controllers', ['ngResource'])
       return $http.get('https://eat-it-server.herokuapp.com/orders.json')
     },
     new: function (order) {
-      console.log(order)
       return $http.post('https://eat-it-server.herokuapp.com/orders.json', { order: {name: order.name, provider_id: order.provider} })
       //return $http.put('http://10.0.0.30:3000/orders.json', { data: {name: "asd", provider_id: "asd", description: "asd"} })
     },
     find: function(order_id) {
       return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'.json')
+    },
+    disable: function(order_id) {
+      return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'/disable.json')
     }
   };
 })
@@ -64,6 +66,17 @@ angular.module('starter.controllers', ['ngResource'])
   return {
     all: function (order_id) {
       return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'/requests.json')
+    },
+    new: function (order_id, request) {
+
+      return $http.post('https://eat-it-server.herokuapp.com/orders/'+order_id+'/requests.json', { 
+        request: 
+          { 
+            requester: request.requester, 
+            comment: request.comment,
+            order_id: order_id
+          }})
+      //return $http.put('http://10.0.0.30:3000/orders.json', { data: {name: "asd", provider_id: "asd", description: "asd"} })
     }    
   };
 })
@@ -91,10 +104,9 @@ angular.module('starter.controllers', ['ngResource'])
   
 })
 
-.controller('ShowOrderCtrl', function($scope,$state, $stateParams, Orders, Providers) {
+.controller('ShowOrderCtrl', function($scope,$state, $stateParams, Orders, Providers, Requests) {
     Orders.find($stateParams.order_id).success(function (order){
         Providers.find(order.provider_id).success(function(provider){
-            
             $scope.order = order;
             $scope.provider  = provider;
             $scope.menu = provider.menu.match(/[^\r\n]+/g)
@@ -103,15 +115,27 @@ angular.module('starter.controllers', ['ngResource'])
         })
     })
 
-    $scope.showRequests = function (order_id) {
-        console.log($stateParams.order_id)
+    $scope.showRequests = function () {
         $state.go("app.show_order_requests", {order_id: $stateParams.order_id});
+    }
+
+    $scope.createRequest = function (request) {
+        Requests.new($stateParams.order_id, request);
+        $state.go("app.show_order_requests", {order_id: $stateParams.order_id});
+    }
+
+    $scope.disableOrder = function ()
+    {
+        Orders.disable($stateParams.order_id).success(function (order)
+        {
+            $state.go("app.show_order", {order_id: $stateParams.order_id});
+        })
+
     }
 })
 
 .controller('ShowOrderRequestsCtrl', function($scope, $stateParams, Requests) {
     Requests.all($stateParams.order_id).success(function (order_requests){
-        console.log(order_requests)
         $scope.requests = order_requests
     })
 
@@ -123,14 +147,12 @@ angular.module('starter.controllers', ['ngResource'])
   })
 
   $scope.createOrder = function (order) {
-    //console.log(order)
     Orders.new(order).then (function() {
-      $state.go("app.orders");
+      $state.go("app.orders"),{};
     })
   }
 })
 
 .controller('CreateOrderCtrl', function($scope, $stateParams, Orders) {
-  console.log($stateParams)
-  console.log($scope)
+
 });

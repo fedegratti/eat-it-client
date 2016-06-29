@@ -4,8 +4,15 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="order in orders" href="#/app/orders/{{order.id}}">
+      <ion-item ng-repeat="order in orders" href="#/app/orders/{{order.id}}" class="item item-button-right">
         {{order.name}}
+        <button class="button button-positive" ng-if="order.enabled==true">
+          activa
+        </button>
+        <button class="button button-dark" ng-if="order.enabled==false">
+          finalizada
+        </button>
+ 
       </ion-item>
     </ion-list>
   </ion-content>

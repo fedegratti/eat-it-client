@@ -1,19 +1,42 @@
 <ion-view view-title="Orden {{order.name}}" ng-controller="ShowOrderCtrl">
   <ion-nav-buttons side="secondary">
-    <button class="button" ng-click="showRequests( )">
+    <button class="button" ng-click="showRequests()">
       Pedidos
     </button>
   </ion-nav-buttons>
-  <ion-content>
-      <h2 >Lugar: {{provider.name}}</h2>
-      <br>
-      <h3 >Menu</h2>
+
+  <div class="bar bar-subheader bar-dark">
+        <h2 class="title">{{provider.name}}</h2>
+  </div>
+
+  <ion-content has-subheader="true" class="has-header has-subheader">
+      
+      <div class="item item-divider">
+        Menu:  
+      </div>
 
       <ul class="list">
         <li class="item" ng-repeat="line in menu">
             {{line}}
         </li>
       </ul>
+
+      <div class="item item-divider" ng-if="order.enabled">
+        Realizar pedido:
+      </div>
+      <form ng-submit="createRequest(request)" ng-if="order.enabled">
+        <div class="list">
+          <label class="item item-input">
+            <input type="text" ng-model="request.requester" placeholder="A nombre de">
+          </label>
+          <label class="item item-input">
+            <textarea placeholder="Pedido" ng-model="request.comment"></textarea>
+          </label>
+          <button class="button button-full button-balanced" type="submit"> 
+            Crear pedido
+          </button>
+        </div>
+      </form>
   </ion-content>
 </ion-view>
 
