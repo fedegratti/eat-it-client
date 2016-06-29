@@ -1,4 +1,7 @@
-<ion-view view-title="Orders">
+<ion-view view-title="Orders" ng-controller="OrdersCtrl">
+  <ion-nav-buttons side="secondary">
+    <button class="button" ng-click="newOrder()">Nueva orden</button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item ng-repeat="order in orders" href="#/app/orders/{{order.id}}">

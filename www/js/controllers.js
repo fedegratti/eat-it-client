@@ -54,7 +54,17 @@ angular.module('starter.controllers', ['ngResource'])
       console.log(order)
       return $http.post('https://eat-it-server.herokuapp.com/orders.json', { order: {name: order.name, provider_id: order.provider} })
       //return $http.put('http://10.0.0.30:3000/orders.json', { data: {name: "asd", provider_id: "asd", description: "asd"} })
+    },
+    find: function(order_id) {
+      return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'.json')
     }
+  };
+})
+.factory('Requests', function ($http) {
+  return {
+    all: function (order_id) {
+      return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'/requests.json')
+    }    
   };
 })
 
@@ -62,6 +72,9 @@ angular.module('starter.controllers', ['ngResource'])
   return {
     all: function () {
       return $http.get('https://eat-it-server.herokuapp.com/providers.json')
+    },
+    find: function(id) {
+      return $http.get('https://eat-it-server.herokuapp.com/providers/'+id+'.json')
     }
   };
 })
@@ -75,6 +88,32 @@ angular.module('starter.controllers', ['ngResource'])
   $scope.newOrder = function () {
     $state.go("app.new_order");
   }
+  
+})
+
+.controller('ShowOrderCtrl', function($scope,$state, $stateParams, Orders, Providers) {
+    Orders.find($stateParams.order_id).success(function (order){
+        Providers.find(order.provider_id).success(function(provider){
+            
+            $scope.order = order;
+            $scope.provider  = provider;
+            $scope.menu = provider.menu.match(/[^\r\n]+/g)
+            
+
+        })
+    })
+
+    $scope.showRequests = function (order_id) {
+        console.log($stateParams.order_id)
+        $state.go("app.show_order_requests", {order_id: $stateParams.order_id});
+    }
+})
+
+.controller('ShowOrderRequestsCtrl', function($scope, $stateParams, Requests) {
+    Requests.all($stateParams.order_id).success(function (order_requests){
+        console.log(order_requests)
+        $scope.requests = order_requests
+    })
 
 })
 

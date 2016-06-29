@@ -1,0 +1,14 @@
+<ion-view view-title="Pedidos" ng-controller="ShowOrderCtrl">
+  <ion-content>
+    <div class="card" ng-repeat="request in requests">
+      <div class="item item-divider">
+        {{request.requester}}
+      </div>
+      <div class="item item-text-wrap">
+        {{request.comment}}
+      </div>
+
+    </div>
+  </ion-content>
+</ion-view>
+

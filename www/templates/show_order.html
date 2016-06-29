@@ -1,0 +1,19 @@
+<ion-view view-title="Orden {{order.name}}" ng-controller="ShowOrderCtrl">
+  <ion-nav-buttons side="secondary">
+    <button class="button" ng-click="showRequests( )">
+      Pedidos
+    </button>
+  </ion-nav-buttons>
+  <ion-content>
+      <h2 >Lugar: {{provider.name}}</h2>
+      <br>
+      <h3 >Menu</h2>
+
+      <ul class="list">
+        <li class="item" ng-repeat="line in menu">
+            {{line}}
+        </li>
+      </ul>
+  </ion-content>
+</ion-view>
+
