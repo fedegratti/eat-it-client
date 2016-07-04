@@ -120,8 +120,10 @@ angular.module('starter.controllers', ['ngResource'])
     }
 
     $scope.createRequest = function (request) {
-        Requests.new($stateParams.order_id, request);
-        $state.go("app.show_order_requests", {order_id: $stateParams.order_id});
+        Requests.new($stateParams.order_id, request).success(function()
+        {
+            $state.go("app.show_order_requests", {order_id: $stateParams.order_id});
+        });
     }
 
     $scope.disableOrder = function ()
