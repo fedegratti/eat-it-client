@@ -46,6 +46,8 @@ angular.module('starter.controllers', ['ngResource'])
 })
 
 .factory('Orders', function ($http) {
+            console.log("factory orders ");
+
   return {
     all: function () {
       return $http.get('https://eat-it-server.herokuapp.com/orders.json')
@@ -54,6 +56,7 @@ angular.module('starter.controllers', ['ngResource'])
       return $http.post('https://eat-it-server.herokuapp.com/orders.json', { order: {name: order.name, provider_id: order.provider} })
     },
     find: function(order_id) {
+
       return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'.json')
     },
     disable: function(order_id) {
@@ -99,16 +102,19 @@ angular.module('starter.controllers', ['ngResource'])
   $scope.find = function (order_id) {
     console.log("FIND ORDER ")
   }
+  $scope.newOrder = function () {
+    $state.go("app.new_order");
+  }
 
 
   
 })
 
 .controller('ShowOrderCtrl', function($scope,$state, $stateParams, Orders, Requests) {
+    console.log("show order ctr instanciado ");
+    
     Orders.find($stateParams.order_id).success(function (order){
-            console.log("find order1");
-            console.log("find order2");
-
+            console.log("find order");
             $scope.order     = order;
             $scope.provider  = order.provider;
             $scope.menu      = order.provider.menu.match(/[^\r\n]+/g)
@@ -121,10 +127,15 @@ angular.module('starter.controllers', ['ngResource'])
     }
 
     $scope.createRequest = function (request) {
+          console.log("ALSKDJALSDKJASLDJKASLDKAJSDLAKJD")
+
         Requests.new($stateParams.order_id, request).success(function()
         {
             $state.go("app.show_order_requests", {order_id: $stateParams.order_id});
-        });
+        }).error(function (data) {
+          console.log(data)
+         $scope.errormsg = data;
+      });;
     }
 
     $scope.disableOrder = function ()
@@ -159,7 +170,5 @@ angular.module('starter.controllers', ['ngResource'])
 })
 
 .controller('CreateOrderCtrl', function($scope, $state) {
-    $scope.newOrder = function () {
-    $state.go("app.new_order");
-  }
+    
 });
