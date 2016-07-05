@@ -52,7 +52,6 @@ angular.module('starter.controllers', ['ngResource'])
     },
     new: function (order) {
       return $http.post('https://eat-it-server.herokuapp.com/orders.json', { order: {name: order.name, provider_id: order.provider} })
-      //return $http.put('http://10.0.0.30:3000/orders.json', { data: {name: "asd", provider_id: "asd", description: "asd"} })
     },
     find: function(order_id) {
       return $http.get('https://eat-it-server.herokuapp.com/orders/'+order_id+'.json')
@@ -76,7 +75,6 @@ angular.module('starter.controllers', ['ngResource'])
             comment: request.comment,
             order_id: order_id
           }})
-      //return $http.put('http://10.0.0.30:3000/orders.json', { data: {name: "asd", provider_id: "asd", description: "asd"} })
     }    
   };
 })
@@ -98,21 +96,24 @@ angular.module('starter.controllers', ['ngResource'])
     $scope.orders = response;
   })
 
-  $scope.newOrder = function () {
-    $state.go("app.new_order");
+  $scope.find = function (order_id) {
+    console.log("FIND ORDER ")
   }
+
+
   
 })
 
-.controller('ShowOrderCtrl', function($scope,$state, $stateParams, Orders, Providers, Requests) {
+.controller('ShowOrderCtrl', function($scope,$state, $stateParams, Orders, Requests) {
     Orders.find($stateParams.order_id).success(function (order){
-        Providers.find(order.provider_id).success(function(provider){
-            $scope.order = order;
-            $scope.provider  = provider;
-            $scope.menu = provider.menu.match(/[^\r\n]+/g)
-            
+            console.log("find order1");
+            console.log("find order2");
 
-        })
+            $scope.order     = order;
+            $scope.provider  = order.provider;
+            $scope.menu      = order.provider.menu.match(/[^\r\n]+/g)
+            $scope.requests  = order.requests
+       
     })
 
     $scope.showRequests = function () {
@@ -138,6 +139,7 @@ angular.module('starter.controllers', ['ngResource'])
 
 .controller('ShowOrderRequestsCtrl', function($scope, $stateParams, Requests) {
     Requests.all($stateParams.order_id).success(function (order_requests){
+        console.log("show requests");
         $scope.requests = order_requests
     })
 
@@ -145,16 +147,19 @@ angular.module('starter.controllers', ['ngResource'])
 
 .controller('NewOrderCtrl', function($scope, $state, Providers, Orders) {
   Providers.all().success(function (response) {
+    
     $scope.providers = response;
   })
 
   $scope.createOrder = function (order) {
-    Orders.new(order).then (function() {
+    Orders.new(order).success (function() {
       $state.go("app.orders"),{};
     })
   }
 })
 
-.controller('CreateOrderCtrl', function($scope, $stateParams, Orders) {
-
+.controller('CreateOrderCtrl', function($scope, $state) {
+    $scope.newOrder = function () {
+    $state.go("app.new_order");
+  }
 });

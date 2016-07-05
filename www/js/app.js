@@ -25,6 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
+
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.views.maxCache(0);
 
@@ -98,7 +99,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     views: {
       'menuContent': {
         templateUrl: 'templates/show_order_requests.html',
-        controller: 'ShowOrderRequestsCtrl'
+        controller: 'ShowOrderCtrl'
       }
     }
   })
