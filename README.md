@@ -21,3 +21,10 @@ Organize your lunch with friends.
  `ionic serve`
 
 Y eso es todo.
+![Alt text](http://i.imgur.com/KlbNZfd.jpg "Optional title")
+
+http://i.imgur.com/aiE6U1P.jpg
+
+http://i.imgur.com/AqTt6ek.jpg
+
+http://i.imgur.com/nbAx6vA.jpg
