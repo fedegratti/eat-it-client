@@ -1,6 +1,15 @@
 # eat-it
 Organize your lunch with friends.
 
+## Screenshots
+http://i.imgur.com/KlbNZfd.jpg
+
+http://i.imgur.com/aiE6U1P.jpg
+
+http://i.imgur.com/AqTt6ek.jpg
+
+http://i.imgur.com/nbAx6vA.jpg
+
 ## Instalacion de Ionic
 
 1: Se debera instalar nodeJS https://nodejs.org/en/
@@ -21,10 +30,5 @@ Organize your lunch with friends.
  `ionic serve`
 
 Y eso es todo.
-![Alt text](http://i.imgur.com/KlbNZfd.jpg "Optional title")
 
-http://i.imgur.com/aiE6U1P.jpg
 
-http://i.imgur.com/AqTt6ek.jpg
-
-http://i.imgur.com/nbAx6vA.jpg
