@@ -1,21 +1,21 @@
 # eat-it
 Organize your lunch with friends.
 
-##Demo:
+## Ionic
 
-coming soon...
+1: Se debera instalar nodeJS https://nodejs.org/en/
+2: Luego ejecutar el comando `npm install -g cordova`
+3: Por ultimo ejecutar el comando `npm install -g cordova ionic`
 
 ##Instalation:
 
-1: Clone this repo.
+1: Clonar la repo.
  `git clone https://gitlab.com/federicogr/eat-it.git`
 
-2: Go to the repo's folder.
+2: Ir a la carpeta del repositorio.
  `cd eat-it`
 
-3: Run Ionic server.
+3: Iniciar el servidor de ionic ( automaticamente se abrira en el browser)
  `ionic serve`
 
-And that's it!
-
-Enjoy!
+Y eso es todo.
