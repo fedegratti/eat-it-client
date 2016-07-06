@@ -1,7 +1,7 @@
 # eat-it
 Organize your lunch with friends.
 
-## Ionic
+## Instalacion de Ionic
 
 1: Se debera instalar nodeJS https://nodejs.org/en/
 
@@ -9,7 +9,7 @@ Organize your lunch with friends.
 
 3: Por ultimo ejecutar el comando `npm install -g ionic`
 
-##Instalation:
+## Iniciar la aplicacion:
 
 1: Clonar la repo.
  `git clone https://gitlab.com/federicogr/eat-it.git`
