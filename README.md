@@ -4,8 +4,10 @@ Organize your lunch with friends.
 ## Ionic
 
 1: Se debera instalar nodeJS https://nodejs.org/en/
+
 2: Luego ejecutar el comando `npm install -g cordova`
-3: Por ultimo ejecutar el comando `npm install -g cordova ionic`
+
+3: Por ultimo ejecutar el comando `npm install -g ionic`
 
 ##Instalation:
 
